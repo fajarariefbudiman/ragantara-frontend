@@ -1,13 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { UserProvider } from "context/UserContext";
+import { ProductProvider } from "context/ProductContext";
+import { CategoryProvider } from "context/CategoryContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const ProviderComposer = ({ contexts, children }) => contexts.reduce((prev, Context) => <Context>{prev}</Context>, children);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ProviderComposer contexts={[ ProductProvider, UserProvider, CategoryProvider]}>
+      <App />
+    </ProviderComposer>
   </React.StrictMode>
 );
 
